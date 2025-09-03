@@ -12,16 +12,16 @@ def criar_app():
     app.config['SECRET_KEY'] = Config.SECRET_KEY
     app.config['SQLALCHEMY_DATABASE_URI'] = Config.SQLALCHEMY_DATABASE_URI
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = Config.SQLALCHEMY_TRACK_MODIFICATIONS
-    
-    #Inicializa o Banco de dados
+    # Inicializa o Banco de dados
     db.init_app(app)
+    # Registar as rotas de tarefas
     app.register_blueprint(tarefas_bp)
-    #Criar uma instância do controlador de tarefas
+    # Criar uma instância do controlador de tarefas
     return app
+
 if __name__ == '__main__':
     app = criar_app()
+    # Criar as tabelas no banco de dados
     with app.app_context():
-        db.create_all() #Só criar as tabelas se não existirem
+        db.create_all() # Só criar as tabelas se não existirem
     app.run(debug=True)
-    
-    

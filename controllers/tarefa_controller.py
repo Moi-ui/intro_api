@@ -9,15 +9,23 @@ class TarefaController:
     
     @staticmethod
     def get_listar_tarefas_id(tarefa_id):
-        pass
+        return Tarefa.query.get(tarefa_id)
     
     @staticmethod
-    def get_criar_tarefa(id, tarefa, concluida):
-        pass
+    def post_criar_tarefa(id, tarefa, concluida):
+        nova_tarefa = Tarefa(id=id, titulo=tarefa['titulo'], concluida=concluida)
+        db.session.add(nova_tarefa)
+        db.session.commit()
+        return nova_tarefa
     
     @staticmethod
-    def delete_remover_tarefa(self, tarefa_id: int):
-        pass
+    def delete_remover_tarefa(tarefa_id: int):  
+        tarefa = Tarefa.query.get(tarefa_id)
+        if tarefa:
+            db.session.delete(tarefa)
+            db.session.commit()
+            return True
+        return False
     
     @staticmethod
     def put_atualizar_tarefa(self, tarefa_id: int, dados: dict):
