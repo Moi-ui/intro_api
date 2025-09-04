@@ -29,4 +29,10 @@ class TarefaController:
     
     @staticmethod
     def put_atualizar_tarefa(self, tarefa_id: int, dados: dict):
-        pass
+        tarefa = Tarefa.query.get(tarefa_id)
+        if tarefa:
+            tarefa.titulo = dados.get('titulo', tarefa.titulo)
+            tarefa.concluida = dados.get('concluida', tarefa.concluida)
+            db.session.commit()
+            return tarefa
+        return None
